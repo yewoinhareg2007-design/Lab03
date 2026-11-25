@@ -127,9 +127,9 @@ def incidence_by_sex():
     sex_chosen = st.selectbox("Choose a sex:", list(sexes))
     st.subheader(f"Cancer Incidence Data for {sex_chosen}s in {state_chosen}")
     if sex_chosen == "Male":
-        st.image("images/Males.jpg", width=200)
+        st.image("WebDevLabs3_4-1/WebDevLabs3_4/images/Males.jpg", width=200)
     if sex_chosen == "Female":
-        st.image("images/Females.jpg", width=200)
+        st.image("WebDevLabs3_4-1/WebDevLabs3_4/images/Females.jpg", width=200)
     response = requests.get(f"https://data.cdc.gov/resource/hksd-2xuw.json?topic=Cancer&locationabbr={state_abbr}&question=Invasive%20cancer%20(all%20sites%20combined)%2C%20incidence&datavaluetype=Number")
     data = response.json()
     totals = {}
