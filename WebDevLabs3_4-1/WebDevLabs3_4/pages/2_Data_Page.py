@@ -133,18 +133,29 @@ def incidence_by_sex():
     response = requests.get(f"https://data.cdc.gov/resource/hksd-2xuw.json?topic=Cancer&locationabbr={state_abbr}&question=Invasive%20cancer%20(all%20sites%20combined)%2C%20incidence&datavaluetype=Number")
     data = response.json()
     totals = {}
+    sex_totals = {"Male": 0.0, "Female": 0.0}
+
     for item in data:
-        try:
-            yearstart = item["yearstart"]
-            yearend = item["yearend"]
-            datavalue = float(item["datavalue"])
-            timeFrame = (yearstart, yearend)
-            if timeFrame not in totals:
-                totals[timeFrame] = datavalue
-            else:
-                totals[timeFrame] += datavalue
-        except KeyError:
-            st.write("Data for this item is incomplete.")
+        strat = item.get("stratification1")
+        if strat in sex_totals:
+            try:
+                datavalue = float(item["datavalue"])
+                sex_totals[strat] += datavalue
+                if strat == sex_chosen:
+                    yearstart = item["yearstart"]
+                    yearend = item["yearend"]
+                    timeFrame = (yearstart, yearend)
+                    totals[timeFrame] = totals.get(timeFrame, 0.0) + datavalue
+            except (KeyError, ValueError):
+                pass
+
     for timeFrame in totals:
         st.write(f"From {timeFrame[0]} to {timeFrame[1]}, there was a total of {totals[timeFrame]} cases of cancer recorded in {sex_chosen}s in {state_chosen}.")
+
+    chart_data = {
+        "stratification1": list(sex_totals.keys()),
+        "datavalue": list(sex_totals.values())
+    }
+    st.bar_chart(chart_data, x="stratification1", y="datavalue")
+
 incidence_by_sex()
