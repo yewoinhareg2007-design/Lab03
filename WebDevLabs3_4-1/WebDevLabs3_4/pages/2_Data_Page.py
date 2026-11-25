@@ -18,7 +18,7 @@ def incidence_by_ethnicity():
             "Choose an ethnicity:",
             ethnicities,
             default=["Asian or Pacific Islander, non-Hispanic"])    
-    response = requests.get(f"https://data.cdc.gov/resource/hksd-2xuw.json?topic=Cancer&locationabbr=US&question=Invasive%20cancer%20(all%20sites%20combined)%2C%20incidence&datavaluetype=Number%22)
+    response = requests.get(f"https://data.cdc.gov/resource/hksd-2xuw.json?topic=Cancer&locationabbr=US&question=Invasive%20cancer%20(all%20sites%20combined)%2C%20incidence&datavaluetype=Number%22")
     data = response.json()
     st.subheader(f"Cancer Incidence Data for {ethnicity} people in the US")  
     ethnicity_in_graph = []
