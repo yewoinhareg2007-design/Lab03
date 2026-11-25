@@ -7,7 +7,7 @@ st.title("Web Development Labs 03 & 04")
 # TODO: Fill out your team number, section, and team members
  
 st.header("CS 1301")
-st.subheader("Team 68, Web Development - Section X")
+st.subheader("Team 68, Web Development - Section C")
 st.subheader("Adora Ezulike, Yewoinhareg Gebrehana")
  
 # TODO (optional): Add a group photo to the images folder and show it here, for example:
